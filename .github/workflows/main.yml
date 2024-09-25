@@ -83,8 +83,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: $VERSION_NUMBER
-          release_name: Release $VERSION_NUMBER
+          tag_name: ${{ env.VERSION_NUMBER }}
+          release_name: Release ${{ env.VERSION_NUMBER }}
           body: |
             Changes in this Release
             - First Change
