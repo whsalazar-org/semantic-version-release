@@ -65,6 +65,7 @@ jobs:
       
       - name: Extract PR Description
         id: extract_pr_description
+        if: github.event_name == 'pull_request'
         run: |
           PR_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
           PR_DESCRIPTION=$(gh pr view $PR_NUMBER --json body --jq .body)
@@ -72,6 +73,7 @@ jobs:
 
       - name: Extract Version Number
         id: extract_version_number
+        if: github.event_name == 'pull_request'
         run: |
           VERSION_NUMBER=$(echo "${{ env.PR_DESCRIPTION }}" | grep -oP 'Tag: \K[^\s]+')
           echo $VERSION_NUMBER
@@ -83,8 +85,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: ${{ env.VERSION_NUMBER }}
-          release_name: Release ${{ env.VERSION_NUMBER }}
+          tag_name: ${{ github.event_name == 'pull_request' && env.VERSION_NUMBER || github.ref_name }}
+          release_name: Release ${{ github.event_name == 'pull_request' && env.VERSION_NUMBER || github.ref_name }}
           body: |
             Changes in this Release
             - First Change
