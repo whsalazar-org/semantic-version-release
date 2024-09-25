@@ -74,6 +74,7 @@ jobs:
         id: extract_version_number
         run: |
           VERSION_NUMBER=$(echo "${{ env.PR_DESCRIPTION }}" | grep -oP 'Tag: \K[^\s]+')
+          echo $VERSION_NUMBER
           echo "VERSION_NUMBER=$VERSION_NUMBER" >> $GITHUB_ENV
 
         
