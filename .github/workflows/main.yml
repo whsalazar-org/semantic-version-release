@@ -54,7 +54,8 @@ jobs:
       repository-projects: write
       security-events: write
       statuses: write
-
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -73,6 +74,7 @@ jobs:
         id: extract_version_number
         run: |
           VERSION_NUMBER=$(echo "${{ env.PR_DESCRIPTION }}" | grep -oP 'Tag: \K[^\s]+')
+          echo $VERSION_NUMBER
           echo "VERSION_NUMBER=$VERSION_NUMBER" >> $GITHUB_ENV
 
         
