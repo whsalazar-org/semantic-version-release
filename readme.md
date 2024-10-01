@@ -1,2 +1,2 @@
-# This is a sample test repo to test using tags in a Release
-## look at the main.yml workflow file for an example
+# This is a repo that demonstrates doing releases using semantic versioning
+Reference the main.yml workflow file for an example of doing this using GitHub Actions
